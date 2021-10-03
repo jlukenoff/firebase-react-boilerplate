@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "public/",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es5",
+    "jsx": "react",
+    "esModuleInterop": true
+  },
+  "compileOnSave": true,
+  "include": ["client"],
+  "exclude": ["node_modules"]
+}
