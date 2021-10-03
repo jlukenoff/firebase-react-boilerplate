@@ -1,13 +1,15 @@
 import React from "react";
-import Button from "@mui/material/Button"
+import {
+  BrowserRouter as Router /* Switch, Link, Route */,
+} from "react-router-dom";
+import NavBar from "./NavBar";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
-      <Button>I am a button</Button>
-    </div>
-  )
-}
+    <Router>
+      <NavBar />
+    </Router>
+  );
+};
 
 export default App;
