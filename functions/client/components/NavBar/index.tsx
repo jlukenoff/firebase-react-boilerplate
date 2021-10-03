@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
@@ -15,12 +14,29 @@ import MailIcon from "@mui/icons-material/Mail";
 import InboxIcon from "@mui/icons-material/Inbox";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import FirstPage from "../FirstPage";
+import SecondPage from "../SecondPage";
+import { ListItemButton } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
 export interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
+
+export const navItems = [
+  {
+    label: "Second Page",
+    path: "/second-page",
+    Component: SecondPage,
+  },
+  {
+    label: "First Page",
+    path: "/",
+    Component: FirstPage,
+  },
+];
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -93,15 +109,21 @@ const NavBar: React.FC = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
+          {navItems.reverse().map(({ path, label }, index) => (
+            <ListItemButton
+              component={Link}
+              to={path}
+              key={path}
+              onClick={() => setOpen(false)}
+            >
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+              <ListItemText primary={label} />
+            </ListItemButton>
           ))}
         </List>
+        {/*
         <Divider />
         <List>
           {["All mail", "Trash", "Spam"].map((text, index) => (
@@ -112,7 +134,7 @@ const NavBar: React.FC = () => {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
     </>
   );

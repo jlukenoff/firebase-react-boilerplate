@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import NavBar from "../NavBar";
+import NavBar, { navItems } from "../NavBar";
 import CssBaseline from "@mui/material/CssBaseline";
-import FirstPage from "../FirstPage";
 import { styled } from "@mui/material/styles";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -15,9 +14,11 @@ const App: React.FC = () => {
         <NavBar />
         <Offset />
         <Switch>
-          <Route path="/">
-            <FirstPage />
-          </Route>
+          {navItems.map(({ path, Component }) => (
+            <Route path={path} key={path}>
+              <Component />
+            </Route>
+          ))}
         </Switch>
       </Router>
     </>
