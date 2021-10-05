@@ -40,9 +40,11 @@ const LoginPage: React.FC = () => {
   const { auth, isSignedIn = false } = useContext(AuthContext);
 
   useEffect(() => {
-    const ui = new AuthUI(auth);
     if (formRef.current) {
-      ui.start(formRef.current, uiConfig);
+      (AuthUI.getInstance() || new AuthUI(auth)).start(
+        formRef.current,
+        uiConfig
+      );
     }
   }, [auth]);
 

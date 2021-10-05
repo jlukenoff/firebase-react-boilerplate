@@ -1,5 +1,6 @@
 import { Auth, getAuth } from "@firebase/auth";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Ref, Dispatch } from "react";
+import { AuthUI } from "../lib/firebase";
 
 export interface IAuthContext {
   auth: Auth | null;
@@ -20,10 +21,15 @@ export const AuthContextProvider: React.FC = ({ children }) => {
     });
 
     return () => unsubscribeAuthStateListener();
-  });
+  }, [auth]);
 
   return (
-    <AuthContext.Provider value={{ auth, isSignedIn }}>
+    <AuthContext.Provider
+      value={{
+        auth,
+        isSignedIn,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
