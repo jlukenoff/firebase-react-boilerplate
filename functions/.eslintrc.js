@@ -27,5 +27,6 @@ module.exports = {
   ],
   rules: {
     quotes: ["error", "double"],
+    "require-jsdoc": 0
   },
 };

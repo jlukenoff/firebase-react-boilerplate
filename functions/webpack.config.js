@@ -6,7 +6,7 @@ const TSCONFIG_FILE = path.resolve(__dirname, "tsconfig.client.json");
 const OUT_DIR = path.resolve(__dirname, 'public')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const mode = process.env.NODE_ENV === "production" ? "production" : "development";
-const { HotModuleReplacementPlugin } = require('webpack');
+const { HotModuleReplacementPlugin, SourceMapDevToolPlugin } = require('webpack');
 
 
 module.exports = {
@@ -18,6 +18,10 @@ module.exports = {
         test: /\.tsx?$/,
         use: [{loader: "ts-loader", options: {configFile: TSCONFIG_FILE}}],
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
@@ -32,6 +36,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "client/index.html"
     }),
-    new HotModuleReplacementPlugin()
-  ]
+    new HotModuleReplacementPlugin(),
+  ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
+    port: 9000,
+  },
 };

@@ -16,8 +16,10 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FirstPage from "../FirstPage";
 import SecondPage from "../SecondPage";
-import { ListItemButton } from "@mui/material";
+import ProfilePage from "../ProfilePage";
+import { ListItemButton, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const drawerWidth = 240;
 
@@ -25,7 +27,13 @@ export interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
-export const navItems = [
+export interface NavItem {
+  label: string;
+  path: string;
+  Component: React.FC;
+}
+export const navItems: NavItem[] = [
+  { label: "Profile", path: "/profile", Component: ProfilePage },
   {
     label: "Second Page",
     path: "/second-page",
@@ -69,7 +77,11 @@ const NavBar: React.FC = () => {
   return (
     <>
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar
+          sx={{
+            display: "flex",
+          }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -82,6 +94,15 @@ const NavBar: React.FC = () => {
           <Typography variant="h6" noWrap component="div">
             DND Friend Finder
           </Typography>
+          <Button
+            to="/profile"
+            sx={{
+              marginLeft: "auto",
+            }}
+            component={Link}
+          >
+            <AccountCircleIcon />
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -123,18 +144,6 @@ const NavBar: React.FC = () => {
             </ListItemButton>
           ))}
         </List>
-        {/*
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
       </Drawer>
     </>
   );
