@@ -17,7 +17,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FirstPage from "../FirstPage";
 import SecondPage from "../SecondPage";
 import ProfilePage from "../ProfilePage";
-import { ListItemButton, Button } from "@mui/material";
+import { ListItemButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
@@ -32,19 +32,19 @@ export interface NavItem {
   path: string;
   Component: React.FC;
 }
-export const navItems: NavItem[] = [
-  { label: "Profile", path: "/profile", Component: ProfilePage },
-  {
+export const navItems: { [key: string]: NavItem } = {
+  "/profile": { label: "Profile", path: "/profile", Component: ProfilePage },
+  "/second-page": {
     label: "Second Page",
     path: "/second-page",
     Component: SecondPage,
   },
-  {
+  "/first-page": {
     label: "First Page",
     path: "/",
     Component: FirstPage,
   },
-];
+};
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -94,7 +94,7 @@ const NavBar: React.FC = () => {
           <Typography variant="h6" noWrap component="div">
             DND Friend Finder
           </Typography>
-          <Button
+          <IconButton
             to="/profile"
             sx={{
               marginLeft: "auto",
@@ -102,7 +102,7 @@ const NavBar: React.FC = () => {
             component={Link}
           >
             <AccountCircleIcon />
-          </Button>
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -130,19 +130,22 @@ const NavBar: React.FC = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {navItems.reverse().map(({ path, label }, index) => (
-            <ListItemButton
-              component={Link}
-              to={path}
-              key={path}
-              onClick={() => setOpen(false)}
-            >
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItemButton>
-          ))}
+          {["/second-page", "/first-page"].map((k, index) => {
+            const { path, label } = navItems[k];
+            return (
+              <ListItemButton
+                component={Link}
+                to={path}
+                key={path}
+                onClick={() => setOpen(false)}
+              >
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={label} />
+              </ListItemButton>
+            );
+          })}
         </List>
       </Drawer>
     </>

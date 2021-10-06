@@ -24,11 +24,14 @@ const App: React.FC = () => {
           <NavBar />
           <Offset />
           <Switch>
-            {navItems.map(({ path, Component }) => (
-              <Route path={path} key={path}>
-                <Component />
-              </Route>
-            ))}
+            {["/profile", "/second-page", "/first-page"].map((key) => {
+              const { path, Component } = navItems[key];
+              return (
+                <Route path={path} key={path}>
+                  <Component />
+                </Route>
+              );
+            })}
           </Switch>
         </Router>
       </ThemeProvider>

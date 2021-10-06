@@ -1,22 +1,20 @@
 /* eslint-disable */
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const ENTRY_POINT = path.resolve(__dirname, "client/index.tsx");
-const TSCONFIG_FILE = path.resolve(__dirname, "tsconfig.client.json");
 const OUT_DIR = path.resolve(__dirname, 'public')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const mode = process.env.NODE_ENV === "production" ? "production" : "development";
-const { HotModuleReplacementPlugin, SourceMapDevToolPlugin } = require('webpack');
 
-
-module.exports = {
+const webpackConfig =  {
   mode,
   entry: ENTRY_POINT,
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: [{loader: "ts-loader", options: {configFile: TSCONFIG_FILE}}],
+        use: [{loader: "ts-loader"}],
         exclude: /node_modules/,
       },
       {
@@ -29,20 +27,23 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    path: OUT_DIR
+    path: OUT_DIR,
+
   },
-  devtool: "inline-source-map",
+  devtool: "source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: "client/index.html"
     }),
-    new HotModuleReplacementPlugin(),
   ],
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),
-    },
+    static: path.join(__dirname, 'public'),
     compress: true,
-    port: 9000,
+    port: 5000,
+    hot: true,
   },
 };
+
+
+
+module.exports = webpackConfig;

@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useEffect } from "react";
-import { Auth } from "@firebase/auth";
 import { styled, CSSObject } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -26,15 +25,6 @@ const InnerContentContainer = styled(Box)({
   flexFlow: "column",
 });
 
-export interface LoginFormProps {
-  handleFormSubmit: (data: LoginFormData) => void;
-}
-
-export interface LoginFormData extends FormData {
-  email: string;
-  password: string;
-}
-
 const LoginPage: React.FC = () => {
   const formRef = useRef(null);
   const { auth, isSignedIn = false } = useContext(AuthContext);
@@ -47,9 +37,6 @@ const LoginPage: React.FC = () => {
       );
     }
   }, [auth]);
-
-  console.log("isSignedIn:", isSignedIn);
-  console.log("auth:", auth);
 
   return (
     <Router>

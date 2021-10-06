@@ -2,10 +2,10 @@
   "name": "functions",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
-    "build": "NODE_ENV='production' tsc && webpack build",
+    "build": "NODE_ENV='production' tsc -p tsconfig.server.json && webpack build",
     "serve": "npm run build && firebase emulators:start --only functions,hosting",
     "dev:serve": "webpack serve",
-    "dev:build:server": "tsc -w",
+    "dev:build:server": "tsc -w -p tsconfig.server.json",
     "dev:build:client": "webpack build -w",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",

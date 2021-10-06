@@ -2,13 +2,15 @@
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "outDir": "dist",
+    // "noUnusedLocals": true,
+    "outDir": "public/",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
+    "target": "es5",
+    "jsx": "react",
     "esModuleInterop": true
   },
   "compileOnSave": true,
-  "include": ["src"]
+  "include": ["client"],
+  "exclude": ["node_modules"]
 }

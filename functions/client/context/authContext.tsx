@@ -1,6 +1,5 @@
 import { Auth, getAuth } from "@firebase/auth";
-import React, { useState, useEffect, Ref, Dispatch } from "react";
-import { AuthUI } from "../lib/firebase";
+import React, { useState, useEffect } from "react";
 
 export interface IAuthContext {
   auth: Auth | null;
