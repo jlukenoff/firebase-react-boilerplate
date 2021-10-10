@@ -14,37 +14,16 @@ import MailIcon from "@mui/icons-material/Mail";
 import InboxIcon from "@mui/icons-material/Inbox";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import FirstPage from "../FirstPage";
-import SecondPage from "../SecondPage";
-import ProfilePage from "../ProfilePage";
 import { ListItemButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import navItems, { NavItemOptions } from "../../lib/nav";
 
 const drawerWidth = 240;
 
 export interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-
-export interface NavItem {
-  label: string;
-  path: string;
-  Component: React.FC;
-}
-export const navItems: { [key: string]: NavItem } = {
-  "/profile": { label: "Profile", path: "/profile", Component: ProfilePage },
-  "/second-page": {
-    label: "Second Page",
-    path: "/second-page",
-    Component: SecondPage,
-  },
-  "/first-page": {
-    label: "First Page",
-    path: "/",
-    Component: FirstPage,
-  },
-};
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -130,7 +109,8 @@ const NavBar: React.FC = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["/second-page", "/first-page"].map((k, index) => {
+          {[NavItemOptions.HOME, NavItemOptions.FIRST_PAGE].map((k, index) => {
+            console.log("k:", k);
             const { path, label } = navItems[k];
             return (
               <ListItemButton

@@ -1,28 +1,15 @@
 import React, { useContext, useRef, useEffect } from "react";
-import { styled, CSSObject } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { PageContainer, InnerContentContainer } from "../ui-components";
 import Typography from "@mui/material/Typography";
 
 import { uiConfig, AuthUI } from "../../lib/firebase";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import AuthContext from "../../context/authContext";
+import { styled } from "@mui/material/styles";
+import { Paper } from "@mui/material";
 
-const baselineStyles: CSSObject = {
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const PageContainer = styled(Box)(baselineStyles);
-
-const InnerContentContainer = styled(Box)({
-  ...baselineStyles,
-  border: "1px dashed red",
-  width: "80%",
-  height: "80%",
-  flexFlow: "column",
+const FirebaseAuthUIContainer = styled(Paper)({
+  marginTop: "1rem",
 });
 
 const LoginPage: React.FC = () => {
@@ -41,17 +28,22 @@ const LoginPage: React.FC = () => {
   return (
     <Router>
       <PageContainer>
-        <InnerContentContainer>
-          <Typography variant="h3" component="h1">
+        <InnerContentContainer
+          sx={{
+            flexDirection: "column",
+            padding: "1rem",
+          }}
+        >
+          <Typography variant="h4" component="h1">
             Welcome to DND Friend Finder
-          </Typography>
-          <Typography variant="h4" component="h2">
-            Please log in
           </Typography>
           {isSignedIn ? (
             <Redirect to="/" />
           ) : (
-            <div id="firebase-auth-form-container" ref={formRef}></div>
+            <FirebaseAuthUIContainer
+              id="firebase-auth-form-container"
+              ref={formRef}
+            />
           )}
         </InnerContentContainer>
       </PageContainer>

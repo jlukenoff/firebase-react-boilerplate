@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import NavBar, { navItems } from "../NavBar";
+import NavBar from "../NavBar";
+import navItems, { NavItemOptions } from "../../lib/nav";
 import CssBaseline from "@mui/material/CssBaseline";
 import { styled, ThemeProvider } from "@mui/material/styles";
 import theme from "../../lib/mui-theme";
@@ -24,7 +25,11 @@ const App: React.FC = () => {
           <NavBar />
           <Offset />
           <Switch>
-            {["/profile", "/second-page", "/first-page"].map((key) => {
+            {[
+              NavItemOptions.PROFILE,
+              NavItemOptions.FIRST_PAGE,
+              NavItemOptions.HOME,
+            ].map((key) => {
               const { path, Component } = navItems[key];
               return (
                 <Route path={path} key={path}>
