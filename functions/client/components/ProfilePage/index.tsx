@@ -3,6 +3,7 @@ import { signOut } from "firebase/auth";
 import { Redirect } from "react-router-dom";
 import React, { useContext } from "react";
 import AuthContext from "../../context/authContext";
+import { InnerContentContainer, PageContainer } from "../ui-components";
 
 const ProfilePage: React.FC = () => {
   const { auth, isSignedIn } = useContext(AuthContext);
@@ -10,17 +11,20 @@ const ProfilePage: React.FC = () => {
   const handleLogOutClick = async () => {
     try {
       if (!auth) return;
-      const signOutResult = await signOut(auth);
-      console.log("signOutResult:", signOutResult);
+      await signOut(auth);
     } catch (signOutError) {
-      console.log("signOutError:", signOutError);
+      console.log("Error Signing Out::", signOutError);
     }
   };
 
   return !isSignedIn ? (
     <Redirect to="/" />
   ) : (
-    <Button onClick={handleLogOutClick}>LOG OUT</Button>
+    <PageContainer>
+      <InnerContentContainer>
+        <Button onClick={handleLogOutClick}>LOG OUT</Button>
+      </InnerContentContainer>
+    </PageContainer>
   );
 };
 

@@ -18,6 +18,7 @@ import { ListItemButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import navItems, { NavItemOptions } from "../../lib/nav";
+import APP_CONFIG from "../../lib/config";
 
 const drawerWidth = 240;
 
@@ -71,7 +72,7 @@ const NavBar: React.FC = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            DND Friend Finder
+            {APP_CONFIG.APP_NAME}
           </Typography>
           <IconButton
             to="/profile"

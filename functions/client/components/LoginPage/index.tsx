@@ -1,12 +1,12 @@
 import React, { useContext, useRef, useEffect } from "react";
 import { PageContainer, InnerContentContainer } from "../ui-components";
 import Typography from "@mui/material/Typography";
-
 import { uiConfig, AuthUI } from "../../lib/firebase";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import AuthContext from "../../context/authContext";
 import { styled } from "@mui/material/styles";
 import { Paper } from "@mui/material";
+import APP_CONFIG from "../../lib/config";
 
 const FirebaseAuthUIContainer = styled(Paper)({
   marginTop: "1rem",
@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
           }}
         >
           <Typography variant="h4" component="h1">
-            Welcome to DND Friend Finder
+            {`Welcome to ${APP_CONFIG.APP_NAME}`}
           </Typography>
           {isSignedIn ? (
             <Redirect to="/" />
